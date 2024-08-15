@@ -6,8 +6,6 @@ import heroImg from "@/public/images/ph1.jpg";
 import useIsomorphicLayoutEffect from "@/lib/gsap/hooks/useIsomorphicLayoutEffect";
 import { gsap, Flip, EASE } from "@/lib/gsap/gsap";
 
-gsap.registerPlugin(Flip);
-
 const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
