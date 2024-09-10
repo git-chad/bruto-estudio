@@ -1,6 +1,7 @@
 import Preloader from "@/components/other/preloader";
 import Hero from "@/components/sections/hero";
 import Highlight from "@/components/sections/highlight";
+import HighlightBottom from "@/components/sections/highlight-btm";
 import Slideshow from "@/components/sections/slideshow";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
         <Hero />
       </div>
       <Highlight />
+      <HighlightBottom />
       <Slideshow />
     </main>
   );

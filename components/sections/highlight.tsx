@@ -5,26 +5,34 @@ import Paragraph from "../type/paragraph";
 
 const Highlight = () => {
   return (
-    <section className=" w-full min-h-[400svh]">
-      <Container className="min-h-screen grid grid-cols-12">
-        <div className="col-span-5">
-          <div className="sticky top-20 left-0 flex flex-col">
-            <Title text="highlights" />
-            {/* className="uppercase text-[min(3.5vw,2.5rem)] 2xl:leading-9 mt-[65px]" */}
-            <Paragraph
-            className="uppercase text-[min(3.5vw,2.5rem)]"
-              text="Striking, innovative design stands tall in the heart of Palermo's
-              vibrant art district. The building's dynamic architecture offers
-              expansive interior spaces and exceptional appeal through advanced
-              engineering and craftsmanship."
-            />
-          </div>
+    <section className=" w-full flex flex-col">
+      <Container className="grid grid-cols-12">
+        <div className="col-span-12">
+          <Title
+            firstLineIndent
+            indentSize="1.45em"
+            className="text-h3 leading-[93%] col-span-12"
+            text="es facil olvidarse de tus suenos. nosotros los materializamos."
+          />
         </div>
-        <div className="col-start-7 col-span-6 grid grid-cols-6 gap-4">
-          <div className="bg-black w-full col-span-6 mt-20 aspect-square" />
-          <div className="bg-black w-full col-span-6 mt-20 aspect-square" />
-          <div className="bg-black w-full col-span-6 mt-20 aspect-square" />
+        <div className="col-span-6 col-start-7 mt-medium">
+          <Paragraph
+            className="text-pretty"
+            text="En Welford, materializamos ideas y emociones. Creamos espacios que reflejan la esencia de nuestros clientes, combinando funcionalidad y estética. Nuestro enfoque es directo, moderno y enraizado en el diseño contemporáneo argentino."
+          />
         </div>
+        <div className="col-span-6 grid grid-cols-6 place-content-end">
+          <p className="font-semibold tracking-tighter col-span-2">
+            PROJECT 01
+          </p>
+          <p className="col-span-4 text-pretty tracking-tighter">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            suscipit, sapien sed tincidunt eleifend, lorem ligula sodales dui,
+            eget viverra lorem lectus ac nisi. Integer at erat non metus
+            efficitur tincidunt. Sed scelerisque libero quis
+          </p>
+        </div>
+        <div className="aspect-video bg-black col-span-6 col-start-7 mt-xxxlarge" />
       </Container>
     </section>
   );
