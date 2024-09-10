@@ -5,7 +5,7 @@ import Paragraph from "../type/paragraph";
 
 const Highlight = () => {
   return (
-    <section className="w-full flex flex-col">
+    <section className="w-full flex flex-col py-xxxlarge">
       <Container className="grid grid-cols-12">
         <div className="col-span-12">
           <Title

@@ -1,11 +1,9 @@
 import React from "react";
 import Container from "../ui/container";
 
-type Props = {};
-
-const HighlightBottom = (props: Props) => {
+const HighlightBottom = () => {
   return (
-    <section className="w-full flex flex-col pt-xxxlarge">
+    <section className="w-full flex flex-col py-xxxlarge">
       <Container className="grid grid-cols-12">
         <div className="col-span-4">
           <div className="aspect-video bg-black" />
