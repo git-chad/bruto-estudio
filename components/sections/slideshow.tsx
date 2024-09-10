@@ -10,8 +10,22 @@ const Slideshow = () => {
   return (
     <section className="relative h-screen w-full flex">
       <nav className="z-50 flex items-center justify-between w-20 absolute bottom-5 left-1/2 -translate-x-1/2">
-        <button className={`transition-colors ${active === 0 ? 'text-black' : 'text-black/30'}`} onClick={() => setActive(0)}>01</button>
-        <button className={`transition-colors ${active === 1 ? 'text-black' : 'text-black/30'}`} onClick={() => setActive(1)}>02</button>
+        <button
+          className={`transition-colors ${
+            active === 0 ? "text-black" : "text-black/30"
+          }`}
+          onClick={() => setActive(0)}
+        >
+          01
+        </button>
+        <button
+          className={`transition-colors ${
+            active === 1 ? "text-black" : "text-black/30"
+          }`}
+          onClick={() => setActive(1)}
+        >
+          02
+        </button>
       </nav>
 
       <div

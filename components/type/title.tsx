@@ -9,17 +9,19 @@ type Props = {
   text: string;
   className?: string;
   firstLineIndent?: boolean;
-  indentSize?: number | string;
+  indentSizeMultiplier?: number | string;
 };
 
 const Title = ({
   text,
   className,
   firstLineIndent = false,
-  indentSize = "2em",
+  indentSizeMultiplier = "2em",
 }: Props) => {
   const titleRef = useRef<HTMLDivElement>(null);
   const linesRef = useRef<HTMLElement[]>([]);
+
+  const indentSize = `calc(${indentSizeMultiplier} * (3vw * 1.767))`;
 
   useIsomorphicLayoutEffect(() => {
     if (titleRef.current) {
@@ -36,7 +38,8 @@ const Title = ({
         wrapper.style.overflow = "hidden";
         wrapper.style.position = "relative";
         if (firstLineIndent && index === 0) {
-          wrapper.style.textIndent = typeof indentSize === 'number' ? `${indentSize}px` : indentSize;
+          wrapper.style.textIndent =
+            typeof indentSize === "number" ? `${indentSize}px` : indentSize;
         }
         line.parentNode?.insertBefore(wrapper, line);
         wrapper.appendChild(line);
@@ -68,6 +71,10 @@ const Title = ({
       <div
         ref={titleRef}
         className={`font-semibold tracking-tighter mt-20 uppercase ${className}`}
+        style={{
+          fontSize: "calc(3vw * 1.767)",
+          lineHeight: "0.93",
+        }}
       >
         {text}
       </div>
