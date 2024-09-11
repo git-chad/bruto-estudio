@@ -198,20 +198,20 @@ const FirstSlide = () => {
             className="object-cover w-full h-full"
             onClick={(e) => handleImageClick(img.id, e)}
           />
-          <div className="absolute bottom-1/2 left-xxxlarge w-full p-4 image-info opacity-0">
+          <div className="absolute bottom-1/2 left-xxlarge 2xl:left-xxxlarge min-w-small p-4 image-info opacity-0">
             {expandedId === img.id && (
               <>
                 <Paragraph
                   triggerOnScroll={false}
                   delayed={false}
                   text={img.name}
-                  className="text-h5 font-semibold tracking-tighter uppercase"
+                  className="2xl:text-h5 font-semibold tracking-tighter uppercase"
                 />
                 <Paragraph
                   text={img.info}
                   triggerOnScroll={false}
                   delayed={false}
-                  className="text-h5 font-mono"
+                  className="2xl:text-h5"
                 />
               </>
             )}

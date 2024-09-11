@@ -55,7 +55,7 @@ const images = [
   },
 ];
 
-const FirstSlide = () => {
+const SecondSlide = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
   const [expandedId, setExpandedId] = useState<number | null>(null);
@@ -202,20 +202,21 @@ const FirstSlide = () => {
             alt={img.alt}
             className="object-cover w-full h-full"
           />
-          <div className="absolute bottom-1/2 -right-[calc(100%-17.92rem*2)] w-full p-4 image-info opacity-0">
+          {/* -right-[calc(100%-17.92rem*1.5)] 2xl:-right-[calc(100%-17.92rem*2)] */}
+          <div className="absolute bottom-1/2 right-xxlarge 2xl:right-xxxlarge p-4 image-info opacity-0 min-w-xsmall">
             {expandedId === img.id && (
               <>
                 <Paragraph
                   triggerOnScroll={false}
                   delayed={false}
                   text={img.name}
-                  className="text-h5 font-semibold tracking-tighter uppercase"
+                  className="2xl:text-h5 font-semibold tracking-tighter uppercase w-max"
                 />
                 <Paragraph
                   text={img.info}
                   triggerOnScroll={false}
                   delayed={false}
-                  className="text-h5 font-mono"
+                  className="2xl:text-h5 w-max"
                 />
               </>
             )}
@@ -226,4 +227,4 @@ const FirstSlide = () => {
   );
 };
 
-export default FirstSlide;
+export default SecondSlide;
