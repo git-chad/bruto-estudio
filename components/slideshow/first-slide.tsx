@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import Container from "../ui/container";
 import { EASE, gsap, Flip, DURATION } from "@/lib/gsap/gsap";
 import useIsomorphicLayoutEffect from "@/lib/gsap/hooks/useIsomorphicLayoutEffect";
-import SplitType from "split-type";
+import Paragraph from "../type/paragraph";
 
 const images = [
   {
@@ -10,36 +10,48 @@ const images = [
     image:
       "https://images.beta.cosmos.so/9c530531-e780-4c03-9b44-1e3099946ca4.?format=jpeg",
     alt: "Image 1",
+    name: "San justo 2249, bella vista",
+    info: "09 08 24",
   },
   {
     id: 2,
     image:
       "https://images.beta.cosmos.so/99892fbc-5ed5-4349-8053-3914ac7f1de3?format=jpeg",
     alt: "Image 2",
+    name: "santa fe 1465, buenos aires",
+    info: "15 03 25",
   },
   {
     id: 3,
     image:
       "https://images.beta.cosmos.so/a8f0be5c-7da1-4093-a735-85b4f10d1a2d?format=jpeg",
-    alt: "Image 3",
+    alt: "villa general paz, cordoba",
+    name: "villa general paz, cordoba",
+    info: "22 11 24",
   },
   {
     id: 4,
     image:
       "https://images.beta.cosmos.so/7f29ebf1-9a39-4cc4-afaa-b628040d04f2?format=jpeg",
     alt: "Image 4",
+    name: "talar del lago, pilar",
+    info: "07 06 25",
   },
   {
     id: 5,
     image:
       "https://images.beta.cosmos.so/72dcd88b-e1aa-4244-8f4e-bdc44ed943d8?format=jpeg",
     alt: "Image 5",
+    name: "praderas del lago IV, fatima",
+    info: "30 09 24",
   },
   {
     id: 6,
     image:
       "https://images.beta.cosmos.so/fdaa13e5-c9c9-471a-af11-62dcc8b132c0.?format=jpeg",
-    alt: "Image 6",
+    alt: "Senderos III, costa esmeralda",
+    name: "Senderos III, costa esmeralda",
+    info: "18 12 24",
   },
 ];
 
@@ -69,10 +81,6 @@ const FirstSlide = () => {
   };
 
   const expandImage = (image: HTMLImageElement, id: number) => {
-    const title = image.parentElement?.querySelector(
-      ".image-info"
-    ) as HTMLElement;
-
     gsap.set(image, { zIndex: 1000 });
 
     imageRefs.current.forEach((img, index) => {
@@ -97,58 +105,47 @@ const FirstSlide = () => {
     Flip.from(state, {
       duration: DURATION,
       ease: EASE,
-      onComplete: () => {
-        // Animate title and info in after the image has expanded
-        if (title) {
-          gsap.fromTo(
-            title,
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.6, ease: EASE }
-          );
-        }
-      },
     });
+
+    // Show the image info after the image is expanded
+    const imageInfo = image.parentElement?.querySelector(
+      ".image-info"
+    ) as HTMLElement;
+    if (imageInfo) {
+      gsap.to(imageInfo, { opacity: 1, duration: DURATION / 2 });
+    }
   };
 
   const collapseImage = (image: HTMLImageElement) => {
-    const title = image.parentElement?.querySelector(
+    const imageInfo = image.parentElement?.querySelector(
       ".image-info"
     ) as HTMLElement;
-
-    if (title) {
-      gsap.to(title, {
-        opacity: 0,
-        y: 20,
-        duration: DURATION / 2,
-        ease: EASE,
-        onComplete: () => {
-          const state = Flip.getState(image);
-
-          gsap.set(image, {
-            clearProps: "position,top,left,xPercent,yPercent,width,height",
-            zIndex: 1000,
-          });
-
-          Flip.from(state, {
-            duration: DURATION,
-            ease: EASE,
-            onComplete: () => {
-              gsap.set(image, {
-                clearProps:
-                  "zIndex, position, top, left, xPercent, yPercent, width, height",
-              });
-              // Reset z-index after collapsing
-              setExpandedId(null);
-              imageRefs.current.forEach((img) => {
-                if (img) {
-                  gsap.set(img, { zIndex: 1 });
-                }
-              });
-            },
-          });
-        },
-      });
+    if (imageInfo) {
+      gsap.to(imageInfo, { opacity: 0, duration: DURATION / 2 });
     }
+
+    const state = Flip.getState(image);
+    gsap.set(image, {
+      clearProps: "position,top,left,xPercent,yPercent,width,height",
+      zIndex: 1000,
+    });
+
+    Flip.from(state, {
+      duration: DURATION,
+      ease: EASE,
+      onComplete: () => {
+        gsap.set(image, {
+          clearProps:
+            "zIndex, position, top, left, xPercent, yPercent, width, height",
+        });
+        setExpandedId(null);
+        imageRefs.current.forEach((img) => {
+          if (img) {
+            gsap.set(img, { zIndex: 1 });
+          }
+        });
+      },
+    });
   };
 
   const handleContainerClick = () => {
@@ -203,11 +200,22 @@ const FirstSlide = () => {
             onClick={(e) => handleImageClick(img.id, e)}
           />
           <div className="absolute bottom-1/2 left-xxxlarge w-full p-4 image-info opacity-0">
-            <h2 className="text-xl">{img.alt}</h2>
-            <p className="text-sm">
-              Some additional information, such a cool place to visit I had so
-              much fun building this shit.
-            </p>
+            {expandedId === img.id && (
+              <>
+                <Paragraph
+                  triggerOnScroll={false}
+                  delayed={false}
+                  text={img.name}
+                  className="text-h5 font-semibold tracking-tighter uppercase"
+                />
+                <Paragraph
+                  text={img.info}
+                  triggerOnScroll={false}
+                  delayed={false}
+                  className="text-h5 font-mono"
+                />
+              </>
+            )}
           </div>
         </div>
       ))}

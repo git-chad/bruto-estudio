@@ -8,9 +8,16 @@ import { DURATION, EASE } from "@/lib/gsap/gsap";
 type Props = {
   text: string;
   className?: string;
+  triggerOnScroll?: boolean;
+  delayed?: boolean;
 };
 
-const Paragraph = ({ text, className }: Props) => {
+const Paragraph = ({
+  text,
+  className,
+  triggerOnScroll = true,
+  delayed = true,
+}: Props) => {
   const paragraphRef = useRef<HTMLDivElement>(null);
   const linesRef = useRef<HTMLElement[]>([]);
 
@@ -32,28 +39,45 @@ const Paragraph = ({ text, className }: Props) => {
         wrapper.appendChild(line);
       });
 
-      gsap.fromTo(
-        linesRef.current,
-        { y: 300, skewY: 8 },
-        {
-          scrollTrigger: {
-            trigger: paragraphRef.current,
-            once: true,
-          },
-          y: 0,
-          skewY: 0,
-          ease: EASE,
-          duration: DURATION * 3,
-          stagger: 0.03,
-          delay: DURATION * 1.2,
-        }
-      );
+      if (triggerOnScroll) {
+        // Scroll-triggered animation
+        gsap.fromTo(
+          linesRef.current,
+          { y: 300, skewY: 8 },
+          {
+            scrollTrigger: {
+              trigger: paragraphRef.current,
+              once: true,
+            },
+            y: 0,
+            skewY: 0,
+            ease: EASE,
+            duration: DURATION * 3,
+            stagger: 0.03,
+            delay: delayed ? DURATION * 1.2 : 0,
+          }
+        );
+      } else {
+        // mount-triggered animation
+        gsap.fromTo(
+          linesRef.current,
+          { y: 300, skewY: 8 },
+          {
+            y: 0,
+            skewY: 0,
+            ease: EASE,
+            duration: DURATION * 2,
+            stagger: 0.03,
+            delay: delayed ? DURATION * 1.2 : 0,
+          }
+        );
+      }
     }
 
     return () => {
       gsap.killTweensOf(linesRef.current);
     };
-  }, [text]);
+  }, [text, triggerOnScroll]);
 
   return (
     <div className="overflow-hidden">
