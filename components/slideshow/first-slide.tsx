@@ -85,7 +85,7 @@ const FirstSlide = () => {
 
     imageRefs.current.forEach((img, index) => {
       if (img && index !== id - 1) {
-        gsap.set(img, { zIndex: 1 });
+        gsap.set(img, { zIndex: 1, pointerEvents: "none", cursor: "auto" });
       }
     });
 
@@ -107,7 +107,6 @@ const FirstSlide = () => {
       ease: EASE,
     });
 
-    // Show the image info after the image is expanded
     const imageInfo = image.parentElement?.querySelector(
       ".image-info"
     ) as HTMLElement;
@@ -141,7 +140,7 @@ const FirstSlide = () => {
         setExpandedId(null);
         imageRefs.current.forEach((img) => {
           if (img) {
-            gsap.set(img, { zIndex: 1 });
+            gsap.set(img, { zIndex: 1, pointerEvents: "auto", cursor: "pointer" });
           }
         });
       },
@@ -172,7 +171,7 @@ const FirstSlide = () => {
   return (
     <Container
       ref={containerRef}
-      className="relative flex-shrink-0 w-svw grid-rows-6 py-5"
+      className="relative flex-shrink-0 w-svw grid-rows-6"
       onClick={handleContainerClick}
     >
       <div className="ignore col-span-12 row-span-1" />
